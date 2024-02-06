@@ -1,0 +1,24 @@
+Capsule
+	Source:		Unity Engine
+	Vertex Count:	550
+	Triangle Count:	832
+	Time Taken:	13ms
+	Node Count:	73
+	Max Depth:	2
+
+Madara
+	Source:		https://sketchfab.com/3d-models/madara-3d-print-figure-1e52718633a94d3194d540278afe9a49
+	Vertex Count:	260896
+	Triangle Count:	510583
+	Time Taken:	9120ms
+	Node Count:	41329
+	Max Depth:	9
+
+Human Model
+	Source:
+	Vertex Count:	7612307
+	Triangle Count:	15170560
+	Time Taken:	333026ms
+	Node Count:	1251385
+	Max Depth:	14
+	
