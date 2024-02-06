@@ -42,9 +42,10 @@ public class CPUController : MonoBehaviour
         OctreeUtility.PullTrianglesFromMesh(a_mesh, ref triangles);
 
         int numNodes = 0;
+        int maxDepth = 0;
 
         //Generate the octree using the bounds and trianglese of the mesh
-        Node rootNode = new Node(a_mesh.bounds, triangles, ref numNodes);
+        Node rootNode = new Node(a_mesh.bounds, triangles, 0, ref numNodes, ref maxDepth);
 
         rootNode.numNodes = numNodes;
 
@@ -53,7 +54,8 @@ public class CPUController : MonoBehaviour
         $"Mesh Name: {a_mesh.name}\n" +
         $"Triangle Count: {triangles.Count}\n" +
         $"Elapsed Time: {sw.ElapsedMilliseconds}ms\n" +
-        $"Node Count: {numNodes}");
+        $"Node Count: {numNodes}\n" +
+        $"Max Depth: {maxDepth}");
 
         return rootNode;
     }

@@ -28,8 +28,8 @@ public class OctreeRenderer : MonoBehaviour
     /// </summary>
     public bool displayNodesBelowDepth = true;
 
-    [Header("Source Mesh Visual Controls")]
-    public bool displayMeshWireframe = false;
+    public bool showOnlyPopulatedLeafNodes = false;
+
 
     private void OnDrawGizmos()
     {
@@ -41,17 +41,13 @@ public class OctreeRenderer : MonoBehaviour
                 return;
 
             if (minimumNodeDepth == 0)
-                //Draw the root node
-                Gizmos.DrawWireCube(rootNode.bounds.center, rootNode.bounds.size);
-
+                if (ShouldDisplay(rootNode))
+                {
+                    //Draw the root node
+                    Gizmos.DrawWireCube(rootNode.bounds.center, rootNode.bounds.size);
+                }
             //Draw the child nodes
             DrawChildren(rootNode, 1);
-        }
-
-        if(displayMeshWireframe)
-        {
-            UnityEngine.Debug.LogError("Displaying Mesh Wireframes: Not Yet Implemented");
-            displayMeshWireframe = false;
         }
     }
 
@@ -92,15 +88,34 @@ public class OctreeRenderer : MonoBehaviour
             //2. Current depth is not beyond the minimum node depth and the toggle to display nodes beyond the minimum is FALSE
             if ((currentDepth >= minimumNodeDepth && displayNodesBelowDepth) || (currentDepth == minimumNodeDepth && !displayNodesBelowDepth))
             {
-                //Set the display color
-                SetGizmoColor(idx);
+                if (ShouldDisplay(child))
+                {
+                    //Set the display color
+                    SetGizmoColor(idx);
 
-                //Draw the node representation
-                Gizmos.DrawWireCube(child.bounds.center, child.bounds.size);
+                    //Draw the node representation
+                    Gizmos.DrawWireCube(child.bounds.center, child.bounds.size);
+                }
             }
             //Recursively draw children
             DrawChildren(child, currentDepth + 1);
         }
+    }
+
+    /// <summary>
+    /// Controls the display of nodes based on leaf node control toggle
+    /// </summary>
+    /// <param name="node"></param>
+    /// <returns></returns>
+    private bool ShouldDisplay(Node node)
+    {
+        if(showOnlyPopulatedLeafNodes)
+            if(node.leaf && node.tris.Count > 0)
+                return true;
+            else
+                return false;
+
+        return true;
     }
 
     /// <summary>
