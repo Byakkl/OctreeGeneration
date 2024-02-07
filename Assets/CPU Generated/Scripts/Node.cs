@@ -6,7 +6,6 @@ using UnityEngine;
 
 public class Node
 {
-    public int numNodes;
     public Bounds bounds;
     public Vector3[] min_max_bounds;
     public Node[] children;
@@ -23,7 +22,6 @@ public class Node
     public Node(Bounds a_in_bounds, List<Triangle> a_triangles, int a_currentDepth, ref int nodeCount, ref int maxDepth)
     {
         nodeCount++;
-        numNodes = 0;
         bounds = a_in_bounds;
         //Store the bounds min and max point
         min_max_bounds = new Vector3[2];

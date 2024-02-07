@@ -23,12 +23,6 @@ public class CPUController : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
     private Node GenerateOctree(Mesh a_mesh)
     {
         Stopwatch sw = new Stopwatch();
@@ -46,8 +40,6 @@ public class CPUController : MonoBehaviour
 
         //Generate the octree using the bounds and trianglese of the mesh
         Node rootNode = new Node(a_mesh.bounds, triangles, 0, ref numNodes, ref maxDepth);
-
-        rootNode.numNodes = numNodes;
 
         sw.Stop();
         UnityEngine.Debug.Log($"Octree Generated." +
